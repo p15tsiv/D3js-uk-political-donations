@@ -345,8 +345,8 @@ function mouseover(d, i) {
     .style("top", (parseInt(d3.select(this).attr("cy") - (d.radius+150)) + offset.top) + "px")
 		.html(infoBox)
 			.style("display","block");
-	
-	
+	var speech = new SpeechSynthesisUtterance("The donor is " + donor + " and the amount is " + amount + " pounds");
+	window.speechSynthesis.speak(speech);
 	}
 
 function mouseout() {
@@ -357,6 +357,7 @@ function mouseout() {
 
 		d3.select(".tooltip")
 			.style("display", "none");
+		window.speechSynthesis.cancel();
 		}
 
 $(document).ready(function() {
