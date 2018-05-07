@@ -5,6 +5,7 @@ var nodes = [];
 var force, node, data, maxVal;
 var brake = 0.2;
 var radius = d3.scale.sqrt().range([10, 20]);
+var donors = []; //Donor list
 
 var partyCentres = { 
     con: { x: w / 3, y: h / 3.3}, 
@@ -405,7 +406,19 @@ function mouseover(d, i) {
 			.style("display","block");
 	var speech = new SpeechSynthesisUtterance("The donor is " + donor + " and the amount is " + amount + " pounds");
 	window.speechSynthesis.speak(speech);
+	
+	//Add images to sidebar
+	if ((dlist.indexOf(donor) > -1) == false) {	//check if the current donor's image has already been accessed more than once
+		var element = document.createElement("img");	
+		element.src = imageFile;	//element source is the current donor's image url
+		element.setAttribute("height", "42");	//set the dimensions of the image to 42x42 pixels
+		element.setAttribute("width", "42");
+
+		document.getElementById("images-sidebar").appendChild(element);	//get the element with the specified id and append the element node with the current donor's image
+		dlist.push(donor);	//return the position of the current donor's image and move to the next donor's image
 	}
+
+}
 
 function mouseout() {
 	// no more tooltips
